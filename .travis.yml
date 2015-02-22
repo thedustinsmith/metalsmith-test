@@ -4,4 +4,5 @@ node_js:
 script: npm run-script deploy
 env:
   global:
+  	GH_REF: github.com/thedustinsmith/metalsmith-test
     secure: BNf6dwcGHKNREjosPuF8h8xPZE+X86InVbiG/u4nWx26djaKTpmFmrBtp7UKrzfSQf3avdm49CRhoLJtvV7lEUfl8ejVLPrfKdZMJpf2LGZLIXy4tYtEdmRvbRApSJZ2BtJCyhGgVZsp1v1WvZv9tNV2ZJ5ft3hHMJ4k9Xm7Oc8=
