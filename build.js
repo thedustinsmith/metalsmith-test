@@ -12,7 +12,7 @@ var processUrls = function (opts) {
 	return function (files, metalsmith, done) {
 		for (var file in files) {
 			var replacementFile = file.replace(omitDir, '');
-			if (cleanUrls) {
+			if (cleanUrls && replacementFile.indexOf('index.html') < 0) {
 				replacementFile = replacementFile.replace('.html', '/index.html');
 			}
 			files[replacementFile] = files[file];
