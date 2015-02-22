@@ -10,15 +10,14 @@ var processUrls = function (opts) {
 	var cleanUrls = opts.cleanUrls || false;
 
 	return function (files, metalsmith, done) {
-		for (var file in files) {
-			console.log(files[file]);
+		Object.keys(files).forEach(function (file) {
 			var replacementFile = file.replace(omitDir, '');
 			if (cleanUrls && replacementFile.indexOf('index.html') < 0) {
 				replacementFile = replacementFile.replace('.html', '/index.html');
 			}
 			files[replacementFile] = files[file];
 			delete files[file];
-		}
+		});
 		done();
 	};
 };
