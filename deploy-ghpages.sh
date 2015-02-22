@@ -2,8 +2,8 @@
 node build.js
 ( cd build
  git init
-# git config user.name "Dustin Smith"
-# git config user.email "thedustinsmith@gmail.com"
+ git config user.name "Dustin Smith"
+ git config user.email "thedustinsmith@gmail.com"
 # cp ../CNAME ./CNAME
 # cp ../countryiso.js ./countryiso.js
  git add .
