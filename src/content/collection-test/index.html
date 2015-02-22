@@ -1,0 +1,14 @@
+---
+title: Collection Test
+collection: stuff
+layout: site.swig
+dustin: here
+---
+
+<h2>This is a collection test</h2>
+
+<ul> 
+	{% for i in collections.stuff %}
+    <li><p>{%= i.title %} {%= i.path %}</p></li>
+    {% endfor %}
+</ul>

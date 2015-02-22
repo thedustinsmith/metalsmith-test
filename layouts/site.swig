@@ -8,6 +8,5 @@
     <div class="main-wrapper">
         {%= contents | safe %}
     </div>
-
 </body>
 </html>
