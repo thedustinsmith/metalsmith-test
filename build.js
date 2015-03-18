@@ -4,7 +4,7 @@ var Metalsmith  = require('metalsmith'),
     inPlace     = require('metalsmith-in-place'),
     collections = require('metalsmith-collections'),
     lunr		= require('metalsmith-lunr'),
-    less		= require('../metalsmith-less/lib'),
+    less		= require('metalsmith-less'),
     relative 	= require('metalsmith-relative');
 
 var processUrls = function (opts) {
