@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <title>{%=title%} | Metalsmith Page</title>
 
-    <link href="{%= resource(path, 'css/all.css') %}" rel="Stylesheet" type="text/css" />
+    <link href="{%= baseUrl %}/css/all.css" rel="Stylesheet" type="text/css" />
 </head>
 <body>
 	<header>
-		<a href="/" class="brand-header">Foliotek</a>
+		<a href="{%= baseUrl %}" class="brand-header">Foliotek</a>
 	</header>
     <div class="main-wrapper">
         {% for crumb in crumbs %}
           {% if loop.first %}<div class="crumb-container"><ul>{% endif %}
           <li>
-          {% if !loop.last %}<a href="{%= crumb.link %}">{% endif %}
+          {% if !loop.last %}<a href="{%= baseUrl %}{%= crumb.link %}">{% endif %}
           {%= crumb.text %}
           {% if !loop.last %}</a>{% endif %}
           </li>
@@ -27,6 +27,6 @@
 
     <footer>
     </footer>
-    <script src="{%= resource(path, 'js/lunr.js') %}"></script>
+    <script src="{%= baseUrl %}/js/lunr.js"></script>
 </body>
 </html>

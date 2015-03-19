@@ -7,7 +7,7 @@ var Metalsmith  = require('metalsmith'),
     less		= require('metalsmith-less'),
     relative 	= require('metalsmith-relative'),
     watch 		= require('metalsmith-watch'),
-    serve		= require('metalsmith-serve'),
+    serve		= require('metalsmith-serve')
     path 		= require('path');
 
 var processUrls = function (opts) {
@@ -66,22 +66,24 @@ var crumbsPlugin = function (opts) {
 
 };
 
-
+var isDev = process.argv.length === 3 && process.argv[2] === 'dev';
 var swigOpts = {
 	engine: 'swig',
-	varControls:  ['{%=', '%}'],
-	locals: {
-		resource: function(path, resource) {
-			while (path.indexOf('/') > 0) {
-				resource = "../" + resource;
-				path = path.substring(path.indexOf('/') + 1);
-			}
-			return resource;
-		}
-	}
+	varControls:  ['{%=', '%}']
 };
+swigOpts.locals = {
 
-var isDev = process.argv.length === 3 && process.argv[2] === 'dev';
+	baseUrl: isDev ? '//localhost:8000' : '//thedustinsmith.com/metalsmith-test',
+
+	resource: function(path, resource) {
+		while (path.indexOf('/') > 0) {
+			resource = "../" + resource;
+			path = path.substring(path.indexOf('/') + 1);
+		}
+		return resource;
+	}
+}
+
 
 var ms = Metalsmith(__dirname)
 	.use(markdown())
