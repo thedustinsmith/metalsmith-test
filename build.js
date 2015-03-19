@@ -5,7 +5,10 @@ var Metalsmith  = require('metalsmith'),
     collections = require('metalsmith-collections'),
     lunr		= require('metalsmith-lunr'),
     less		= require('metalsmith-less'),
-    relative 	= require('metalsmith-relative');
+    relative 	= require('metalsmith-relative'),
+    watch 		= require('metalsmith-watch'),
+    serve		= require('metalsmith-serve'),
+    path 		= require('path');
 
 var processUrls = function (opts) {
 	opts = opts || {};
@@ -28,13 +31,39 @@ var processUrls = function (opts) {
 };
 
 var filePaths = function (opts) {
-
 	return function (files, metalsmith, done) {
 		Object.keys(files).forEach(function (file) {
 			files[file].path = file;
 		});
 		done();
 	};
+};
+
+var crumbsPlugin = function (opts) {
+
+	return function (files, metalsmith, done) {
+
+		Object.keys(files).forEach(function (filePath) {
+			if (!filePath.indexOf('.html')) {
+				return;
+			}
+			var crumbs = [];
+			var p = filePath;
+			while (p.indexOf('/') > -1) {
+				var parent = path.dirname(p);
+				crumbs.unshift({
+					link: '/' + parent,
+					text: parent.substring(parent.lastIndexOf('/') + 1)
+				});
+				p = parent;
+			}
+
+			files[filePath].crumbs = crumbs;
+		});
+
+		done();
+	};
+
 };
 
 
@@ -51,7 +80,10 @@ var swigOpts = {
 		}
 	}
 };
-Metalsmith(__dirname)
+
+var isDev = process.argv.length === 3 && process.argv[2] === 'dev';
+
+var ms = Metalsmith(__dirname)
 	.use(markdown())
 	.use(processUrls({
 		cleanUrls: true
@@ -60,6 +92,7 @@ Metalsmith(__dirname)
 	.use(collections({
 		stuff: { refer: false }
 	}))
+	.use(crumbsPlugin())
 	.use(inPlace(swigOpts))
 	.use(layouts(swigOpts))
 	.use(relative())
@@ -68,7 +101,14 @@ Metalsmith(__dirname)
 		useDefaultSourceMap: true
 	}))
 	.use(lunr())
-	.destination('./build')
-	.build(function (err, files) {
-		if(err) throw err;
-	});
+	.destination('./build');
+
+if (isDev) {
+	ms.use(watch("**/*.*")).use(serve({
+		port: 8000,
+		verbose: true
+	}));
+}
+ms.build(function (err, files) {
+	if(err) throw err;
+});
