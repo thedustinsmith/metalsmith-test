@@ -2,6 +2,7 @@ var Metalsmith  = require('metalsmith'),
     markdown    = require('metalsmith-markdown'),
     layouts     = require('metalsmith-layouts'),
     inPlace     = require('metalsmith-in-place'),
+    // templates 	= require('metalsmith-templates'),
     collections = require('metalsmith-collections'),
     lunr		= require('metalsmith-lunr'),
     less		= require('metalsmith-less'),
@@ -69,7 +70,8 @@ var crumbsPlugin = function (opts) {
 var isDev = process.argv.length === 3 && process.argv[2] === 'dev';
 var swigOpts = {
 	engine: 'swig',
-	varControls:  ['{%=', '%}']
+	varControls:  ['{%=', '%}'],
+	directory: 'layouts'
 };
 swigOpts.locals = {
 
@@ -97,6 +99,7 @@ var ms = Metalsmith(__dirname)
 	.use(crumbsPlugin())
 	.use(inPlace(swigOpts))
 	.use(layouts(swigOpts))
+	// .use(templates(swigOpts))
 	.use(relative())
 	.use(less({
 		pattern: '**/all.less',

@@ -28,5 +28,9 @@
     <footer>
     </footer>
     <script src="{%= baseUrl %}/js/lunr.js"></script>
+
+    {% block scripts %}
+
+    {% endblock scripts %}
 </body>
 </html>
