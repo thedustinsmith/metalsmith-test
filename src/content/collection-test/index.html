@@ -1,11 +1,11 @@
 ---
 title: Collection Test
 collection: stuff
-layout: site.swig
 dustin: here
 lunr: true
 ---
-
+{% extends 'site.swig' %}
+{% block contents %}
 <h2>This is a collection test</h2>
 
 <ul> 
@@ -18,3 +18,4 @@ lunr: true
     </li>
     {% endfor %}
 </ul>
+{% endblock %}

@@ -1,15 +1,14 @@
 var Metalsmith  = require('metalsmith'),
-    markdown    = require('metalsmith-markdown'),
-    layouts     = require('metalsmith-layouts'),
-    inPlace     = require('metalsmith-in-place'),
-    // templates 	= require('metalsmith-templates'),
+    each 		= require('metalsmith-each'),
+    templates 	= require('metalsmith-templates'),
     collections = require('metalsmith-collections'),
     lunr		= require('metalsmith-lunr'),
     less		= require('metalsmith-less'),
-    relative 	= require('metalsmith-relative'),
     watch 		= require('metalsmith-watch'),
     serve		= require('metalsmith-serve')
-    path 		= require('path');
+    path 		= require('path'),
+    swig 		= require('swig'),
+    _ 			= require('underscore');
 
 var processUrls = function (opts) {
 	opts = opts || {};
@@ -31,14 +30,14 @@ var processUrls = function (opts) {
 	};
 };
 
-var filePaths = function (opts) {
-	return function (files, metalsmith, done) {
-		Object.keys(files).forEach(function (file) {
-			files[file].path = file;
-		});
-		done();
-	};
-};
+// var filePaths = function (opts) {
+// 	return function (files, metalsmith, done) {
+// 		Object.keys(files).forEach(function (file) {
+// 			files[file].path = file;
+// 		});
+// 		done();
+// 	};
+// };
 
 var crumbsPlugin = function (opts) {
 
@@ -71,7 +70,9 @@ var isDev = process.argv.length === 3 && process.argv[2] === 'dev';
 var swigOpts = {
 	engine: 'swig',
 	varControls:  ['{%=', '%}'],
-	directory: 'layouts'
+	loader: swig.setDefaults({
+		loader: swig.loaders.fs(__dirname + '/layouts')
+	})
 };
 swigOpts.locals = {
 
@@ -84,23 +85,24 @@ swigOpts.locals = {
 		}
 		return resource;
 	}
-}
+};
+
+var swigInPlace = _.extend({}, swigOpts, { inPlace: true });
 
 
 var ms = Metalsmith(__dirname)
-	.use(markdown())
 	.use(processUrls({
 		cleanUrls: true
 	}))
-	.use(filePaths())
 	.use(collections({
 		stuff: { refer: false }
 	}))
 	.use(crumbsPlugin())
-	.use(inPlace(swigOpts))
-	.use(layouts(swigOpts))
-	// .use(templates(swigOpts))
-	.use(relative())
+	.use(each(function (file, name) { // This serves to help swig with template inheritance
+		file.filename = name;
+	}))
+	.use(templates(swigInPlace))
+	.use(templates(swigOpts))
 	.use(less({
 		pattern: '**/all.less',
 		useDefaultSourceMap: true

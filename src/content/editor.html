@@ -1,12 +1,13 @@
 ---
 title: Editor
-layout: site.swig
 lunr: true
 ---
+{% extends 'site.swig' %}
+{% block contents %}
 <div contenteditable="true">
 
 </div>
-
+{% endblock contents %}
 {% block scripts %}
 <script>
 console.log("hi there");

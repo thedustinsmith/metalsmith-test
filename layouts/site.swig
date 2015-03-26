@@ -22,7 +22,8 @@
         {% endfor %}
 
         <h1>{%= title %}</h1>
-        {%= contents | safe %}
+        {% block contents %}
+        {% endblock contents %}
     </div>
 
     <footer>
