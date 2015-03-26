@@ -8,11 +8,13 @@ var Metalsmith  = require('metalsmith'),
     serve		= require('metalsmith-serve')
     path 		= require('path'),
     swig 		= require('swig'),
-    _ 			= require('underscore');
+    _ 			= require('underscore'),
+	isDev  		= (process.argv.length === 3 && process.argv[2] === 'dev');
+
 
 var processUrls = function (opts) {
 	opts = opts || {};
-	var omitDir = opts.omitDir || 'content/';
+	var omitDir = opts.omitDir || ('content' + path.sep);
 	var cleanUrls = opts.cleanUrls || false;
 
 	return function (files, metalsmith, done) {
@@ -48,12 +50,12 @@ var crumbsPlugin = function (opts) {
 				return;
 			}
 			var crumbs = [];
-			var p = filePath;
-			while (p.indexOf('/') > -1) {
+			var p = path.normalize(filePath);
+			while (p.indexOf(path.sep) > -1) {
 				var parent = path.dirname(p);
 				crumbs.unshift({
 					link: '/' + parent,
-					text: parent.substring(parent.lastIndexOf('/') + 1)
+					text: parent.substring(parent.lastIndexOf(path.sep) + 1)
 				});
 				p = parent;
 			}
@@ -66,7 +68,6 @@ var crumbsPlugin = function (opts) {
 
 };
 
-var isDev = process.argv.length === 3 && process.argv[2] === 'dev';
 var swigOpts = {
 	engine: 'swig',
 	varControls:  ['{%=', '%}'],
@@ -78,10 +79,10 @@ swigOpts.locals = {
 
 	baseUrl: isDev ? '//localhost:8000' : '//thedustinsmith.com/metalsmith-test',
 
-	resource: function(path, resource) {
-		while (path.indexOf('/') > 0) {
+	resource: function(relPath, resource) {
+		while (relPath.indexOf('/') > 0) {
 			resource = "../" + resource;
-			path = path.substring(path.indexOf('/') + 1);
+			relPath = relPath.substring(relPath.indexOf('/') + 1);
 		}
 		return resource;
 	}
