@@ -32,14 +32,19 @@ var processUrls = function (opts) {
 	};
 };
 
-// var filePaths = function (opts) {
-// 	return function (files, metalsmith, done) {
-// 		Object.keys(files).forEach(function (file) {
-// 			files[file].path = file;
-// 		});
-// 		done();
-// 	};
-// };
+var fixRelativeResources = function (opts) {
+	var relRoot = opts.relRoot || '/';
+	return function (files, metalsmith, done) {
+		Object.keys(files).forEach(function (fp) {
+			var file = files[fp];
+			var html = file.contents.toString();
+			html = html.replace(/href="\/([a-zA-Z0-9])/g, 'href="'+ relRoot + "$1")
+						.replace(/src="\/([a-zA-Z0-9])/g, 'src="'+ relRoot + "$1");
+			file.contents = new Buffer(html);
+		});
+		done();
+	};
+};
 
 var crumbsPlugin = function (opts) {
 
@@ -101,6 +106,9 @@ var ms = Metalsmith(__dirname)
 	.use(crumbsPlugin())
 	.use(each(function (file, name) { // This serves to help swig with template inheritance
 		file.filename = name;
+	}))
+	.use(fixRelativeResources({
+		relRoot: (isDev) ? '/' : 'metalsmith-test/'
 	}))
 	.use(templates(swigInPlace))
 	.use(templates(swigOpts))
