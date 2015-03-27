@@ -9,6 +9,10 @@
 <body>
 	<header>
 		<a href="{%= baseUrl %}" class="brand-header">Foliotek</a>
+    <!-- <div class="search-wrap">
+      <input type="search" id="search" />
+      <button class="search-btn">Search</button>
+    </div> -->
 	</header>
     <div class="main-wrapper">
         {% for crumb in crumbs %}
@@ -28,8 +32,19 @@
 
     <footer>
     </footer>
+    <script>
+      window.app = {
+        baseUrl: '{%= baseUrl %}'
+      };
+    </script>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="{%= baseUrl %}/js/lunr.js"></script>
+    <script src="{%= baseUrl %}/js/common.js"></script>
+    <script src="{%= baseUrl %}/js/search.js"></script>
 
+    <script>
+    app.Search.init();
+    </script>
     {% block scripts %}
 
     {% endblock scripts %}
