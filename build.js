@@ -108,7 +108,7 @@ var ms = Metalsmith(__dirname)
 		file.filename = name;
 	}))
 	.use(fixRelativeResources({
-		relRoot: (isDev) ? '' : '/metalsmith-test/'
+		relRoot: (isDev) ? '' : 'metalsmith-test/'
 	}))
 	.use(templates(swigInPlace))
 	.use(templates(swigOpts))
