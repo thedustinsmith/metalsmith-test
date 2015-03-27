@@ -33,13 +33,13 @@ var processUrls = function (opts) {
 };
 
 var fixRelativeResources = function (opts) {
-	var relRoot = opts.relRoot || '/';
+	var relRoot = opts.relRoot || '';
 	return function (files, metalsmith, done) {
 		Object.keys(files).forEach(function (fp) {
 			var file = files[fp];
 			var html = file.contents.toString();
-			html = html.replace(/href="\/([a-zA-Z0-9])/g, 'href="'+ relRoot + "$1")
-						.replace(/src="\/([a-zA-Z0-9])/g, 'src="'+ relRoot + "$1");
+			html = html.replace(/href="\/([a-zA-Z0-9])/g, 'href="/'+ relRoot + "$1")
+						.replace(/src="\/([a-zA-Z0-9])/g, 'src="/'+ relRoot + "$1");
 			file.contents = new Buffer(html);
 		});
 		done();
@@ -108,7 +108,7 @@ var ms = Metalsmith(__dirname)
 		file.filename = name;
 	}))
 	.use(fixRelativeResources({
-		relRoot: (isDev) ? '/' : 'metalsmith-test/'
+		relRoot: (isDev) ? '' : '/metalsmith-test/'
 	}))
 	.use(templates(swigInPlace))
 	.use(templates(swigOpts))
