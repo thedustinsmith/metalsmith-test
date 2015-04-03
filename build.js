@@ -6,6 +6,7 @@ var Metalsmith  = require('metalsmith'),
     less		= require('metalsmith-less'),
     watch 		= require('metalsmith-watch'),
     serve		= require('metalsmith-serve')
+    assets 		= require('metalsmith-assets'),
     path 		= require('path'),
     swig 		= require('swig'),
     _ 			= require('underscore'),
@@ -115,6 +116,10 @@ var ms = Metalsmith(__dirname)
 	.use(less({
 		pattern: '**/all.less',
 		useDefaultSourceMap: true
+	}))
+	.use(assets({
+		source: './bower_components',
+		destination: './bower_components'
 	}))
 	.use(lunr())
 	.destination('./build');

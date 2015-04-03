@@ -1,4 +1,5 @@
 #!/bin/bash
+bower install
 node build.js
 ( cd build
  git init

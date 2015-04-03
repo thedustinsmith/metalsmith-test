@@ -1,0 +1,13 @@
+{
+  "name": "metalsmith-test",
+  "version": "0.0.0",
+  "homepage": "https://github.com/thedustinsmith/metalsmith-test",
+  "authors": [
+    "Dustin Smith <thedustinsmith@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "wysihtml": "~0.4.17"
+  }
+}

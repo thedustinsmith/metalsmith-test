@@ -5,13 +5,26 @@ hideDisqus: true
 bodyClass: editor
 ---
 {% extends 'site.swig' %}
-{% block contents %}
-<div contenteditable="true">
 
+{% block head %}
+{% endblock head %}
+
+{% block contents %}
+<div id="toolbar">
+  <a data-wysihtml5-command="bold">bold</a>
+  <a data-wysihtml5-command="italic">italic</a>
+  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
+  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
 </div>
+
+<!-- element to edit -->
+<div id="editor" data-placeholder="Go on, start editing..."></div>
 {% endblock contents %}
+
 {% block scripts %}
+<script src="{%= baseUrl %}/bower_components/wysihtml/dist/wysihtml5x-toolbar.min.js"></script>
+<script src="{%= baseUrl %}/bower_components/wysihtml/parser_rules/advanced_and_extended.js"></script><script src="{%= baseUrl %}/js/editor.js"></script>
 <script>
-console.log("hi there");
+	app.Editor.init();
 </script>
 {% endblock scripts %}

@@ -5,6 +5,8 @@
     <title>{%=title%} | Metalsmith Page</title>
 
     <link href="{%= baseUrl %}/css/all.css" rel="Stylesheet" type="text/css" />
+    {% block head %}
+    {% endblock head %}
 </head>
 <body class="{%= bodyClass %}">
 	<header>
@@ -14,7 +16,6 @@
       <button class="search-btn">Search</button>
     </div> -->
 	</header>
-    <!-- layout: {%= layout %} -->
     <div class="main-wrapper">
         {% for crumb in crumbs %}
           {% if loop.first %}<div class="crumb-container"><ul>{% endif %}
@@ -35,7 +36,7 @@
           <h3>Discussion</h3>
           <div id="disqus_thread"></div>
         </div>
-        {%= endif %}
+        {% endif %}
     </div>
     <footer>
     </footer>
@@ -55,17 +56,19 @@
     {% block scripts %}
 
     {% endblock scripts %}
+    {% if !hideDisqus %}
     <script type="text/javascript">
-    var disqus_shortname = 'metalsmithtest';
-    // var disqus_identifier = '';
-    // var disqus_title = '';
-    // var disqus_url = '';
+      var disqus_shortname = 'metalsmithtest';
+      // var disqus_identifier = '';
+      // var disqus_title = '';
+      // var disqus_url = '';
 
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  {% endif %}
 </body>
 </html>
