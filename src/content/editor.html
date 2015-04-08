@@ -17,14 +17,30 @@ bodyClass: editor
   <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
   <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2">H2</a>
   <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h3">H3</a>
-  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p" class="fa fa-paragraph"></a>
 
   <a data-wysihtml5-command="insertUnorderedList" class="fa fa-list-ul"></a>
   <a data-wysihtml5-command="insertOrderedList" class="fa fa-list-ol"></a>
+
+  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="blockquote" class="fa fa-quote-left"></a>
+  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="pre" class="fa fa-code"></a>
+
 </div>
 
 <!-- element to edit -->
-<div id="editor" data-placeholder="Go on, start editing..."></div>
+<div id="editor" data-placeholder="Go on, start editing...">
+Feel free to edit...
+<br />
+You can paste an image from your clipboard in here.
+<br />
+<h2>Todo</h2>
+<ul>
+	<li>ability to add links</li>
+	<li>Fix drag and drop images</li>
+	<li>Organize the editor code</li>
+	<li>Any other formatting tools?</li>
+</ul>
+
+</div>
 {% endblock contents %}
 
 {% block scripts %}
