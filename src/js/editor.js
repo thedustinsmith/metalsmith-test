@@ -3,13 +3,14 @@
 	var Editor = {
 		insertPlaceholderImage: function (id) {
 			var editor = this.editor;
-			var html = '<img src="/images/ring.svg" id="' + id + '" />';
+			var html = '<img src="/images/ring.svga" id="' + id + '" />';
 			editor.composer.commands.exec("insertHTML", html);
 		},
 		uploadImage: function (b64) {
-			var id = +(new Date);
+			var editor = this.editor,
+				id = +(new Date),
+				clientId = 'ebab107b08ee6ae';
 			this.insertPlaceholderImage(id);
-			var clientId = 'ebab107b08ee6ae';
 			b64 = b64.replace('data:image/png;base64,', '');
 			var upload = $.ajax({
 				url: 'https://api.imgur.com/3/upload',
