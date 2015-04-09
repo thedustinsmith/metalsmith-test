@@ -37,11 +37,11 @@ var ms = Metalsmith(__dirname)
 	.use(each(function (file, name) { // This serves to help swig with template inheritance
 		file.filename = name;
 	}))
+	.use(templates(swigInPlace))
+	.use(templates(swigOpts))
 	.use(fixResources({
 		relRoot: (isDev) ? '' : 'metalsmith-test/'
 	}))
-	.use(templates(swigInPlace))
-	.use(templates(swigOpts))
 	.use(less({
 		pattern: '**/all.less',
 		useDefaultSourceMap: true
