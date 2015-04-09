@@ -13,19 +13,20 @@ var Metalsmith  	= require('metalsmith'),
     crumbs 			= helpers.crumbs,
     path 			= require('path'),
     swig 			= require('swig'),
-    _ 				= require('underscore'),
 	isDev  			= (process.argv.length === 3 && process.argv[2] === 'dev');
 
+swig.setDefaults({
+	loader: swig.loaders.fs(__dirname + '/layouts'),
+	varControls: ['{%=', '%}'],
+	locals: { baseUrl: isDev ? '//localhost:8000' : '//thedustinsmith.com/metalsmith-test' }
+});
 var swigOpts = {
-	engine: 'swig',
-	varControls:  ['{%=', '%}'],
-	locals: { baseUrl: isDev ? '//localhost:8000' : '//thedustinsmith.com/metalsmith-test' },
-	loader: swig.setDefaults({
-		loader: swig.loaders.fs(__dirname + '/layouts')
-	})
+	engine: 'swig'
 };
-
-var swigInPlace = _.extend({}, swigOpts, { inPlace: true });
+var swigInPlace = {
+	engine: 'swig',
+	inPlace: true
+};
 
 var ms = Metalsmith(__dirname)
 	.use(cleanUrls())
