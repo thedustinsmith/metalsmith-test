@@ -15,6 +15,7 @@ var Metalsmith  	= require('metalsmith'),
     swig 			= require('swig'),
 	isDev  			= (process.argv.length === 3 && process.argv[2] === 'dev');
 
+/* Swig Options */
 swig.setDefaults({
 	loader: swig.loaders.fs(__dirname + '/layouts'),
 	varControls: ['{%=', '%}'],
@@ -27,6 +28,8 @@ var swigInPlace = {
 	engine: 'swig',
 	inPlace: true
 };
+/* End Swig Opts */
+
 
 var ms = Metalsmith(__dirname)
 	.use(cleanUrls())
