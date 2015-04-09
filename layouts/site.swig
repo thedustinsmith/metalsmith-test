@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <title>{%=title%} | Metalsmith Page</title>
 
-    <link href="{%= baseUrl %}/css/all.css" rel="Stylesheet" type="text/css" />
+    <link href="/css/all.css" rel="Stylesheet" type="text/css" />
     {% block head %}
     {% endblock head %}
 </head>
 <body class="{%= bodyClass %}">
 	<header>
-		<a href="{%= baseUrl %}" class="brand-header">Foliotek</a>
+		<a href="/" class="brand-header">Foliotek</a>
     <!-- <div class="search-wrap">
       <input type="search" id="search" />
       <button class="search-btn">Search</button>
@@ -20,7 +20,7 @@
         {% for crumb in crumbs %}
           {% if loop.first %}<div class="crumb-container"><ul>{% endif %}
           <li>
-          {% if !loop.last %}<a href="{%= baseUrl %}{%= crumb.link %}">{% endif %}
+          {% if !loop.last %}<a href="{%= crumb.link %}">{% endif %}
           {%= crumb.text %}
           {% if !loop.last %}</a>{% endif %}
           </li>
@@ -46,9 +46,9 @@
       };
     </script>
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="{%= baseUrl %}/js/lunr.js"></script>
-    <script src="{%= baseUrl %}/js/common.js"></script>
-    <script src="{%= baseUrl %}/js/search.js"></script>
+    <script src="/js/lunr.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/search.js"></script>
 
     <script>
     app.Search.init();

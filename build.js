@@ -1,114 +1,42 @@
-var Metalsmith  = require('metalsmith'),
-    each 		= require('metalsmith-each'),
-    templates 	= require('metalsmith-templates'),
-    collections = require('metalsmith-collections'),
-    lunr		= require('metalsmith-lunr'),
-    less		= require('metalsmith-less'),
-    watch 		= require('metalsmith-watch'),
-    serve		= require('metalsmith-serve')
-    assets 		= require('metalsmith-assets'),
-    path 		= require('path'),
-    swig 		= require('swig'),
-    _ 			= require('underscore'),
-	isDev  		= (process.argv.length === 3 && process.argv[2] === 'dev');
-
-
-var processUrls = function (opts) {
-	opts = opts || {};
-	var omitDir = opts.omitDir || ('content' + path.sep);
-	var cleanUrls = opts.cleanUrls || false;
-
-	return function (files, metalsmith, done) {
-		Object.keys(files).forEach(function (file) {
-			if (file.indexOf(omitDir) > -1) {
-				var replacementFile = file.replace(omitDir, '');
-				if (cleanUrls && replacementFile.indexOf('index.html') < 0) {
-					replacementFile = replacementFile.replace('.html', '/index.html');
-				}
-				files[replacementFile] = files[file];
-				delete files[file];
-			}
-		});
-		done();
-	};
-};
-
-var fixRelativeResources = function (opts) {
-	var relRoot = opts.relRoot || '';
-	return function (files, metalsmith, done) {
-		Object.keys(files).forEach(function (fp) {
-			var file = files[fp];
-			var html = file.contents.toString();
-			html = html.replace(/href="\/([a-zA-Z0-9])/g, 'href="/'+ relRoot + "$1")
-						.replace(/src="\/([a-zA-Z0-9])/g, 'src="/'+ relRoot + "$1");
-			file.contents = new Buffer(html);
-		});
-		done();
-	};
-};
-
-var crumbsPlugin = function (opts) {
-
-	return function (files, metalsmith, done) {
-
-		Object.keys(files).forEach(function (filePath) {
-			if (!filePath.indexOf('.html')) {
-				return;
-			}
-			var crumbs = [];
-			var p = path.normalize(filePath);
-			while (p.indexOf(path.sep) > -1) {
-				var parent = path.dirname(p);
-				crumbs.unshift({
-					link: '/' + parent,
-					text: parent.substring(parent.lastIndexOf(path.sep) + 1)
-				});
-				p = parent;
-			}
-
-			files[filePath].crumbs = crumbs;
-		});
-
-		done();
-	};
-
-};
+var Metalsmith  	= require('metalsmith'),
+    each 			= require('metalsmith-each'),
+    templates 		= require('metalsmith-templates'),
+    collections 	= require('metalsmith-collections'),
+    lunr			= require('metalsmith-lunr'),
+    less			= require('metalsmith-less'),
+    watch 			= require('metalsmith-watch'),
+    serve			= require('metalsmith-serve')
+    assets 			= require('metalsmith-assets'),
+    helpers 		= require('./tools/helpers'),
+    cleanUrls 		= helpers.cleanUrls,
+    fixResources 	= helpers.fixRelativeResources,
+    crumbs 			= helpers.crumbs,
+    path 			= require('path'),
+    swig 			= require('swig'),
+    _ 				= require('underscore'),
+	isDev  			= (process.argv.length === 3 && process.argv[2] === 'dev');
 
 var swigOpts = {
 	engine: 'swig',
 	varControls:  ['{%=', '%}'],
+	locals: { baseUrl: isDev ? '//localhost:8000' : '//thedustinsmith.com/metalsmith-test' },
 	loader: swig.setDefaults({
 		loader: swig.loaders.fs(__dirname + '/layouts')
 	})
 };
-swigOpts.locals = {
-
-	baseUrl: isDev ? '//localhost:8000' : '//thedustinsmith.com/metalsmith-test',
-
-	resource: function(relPath, resource) {
-		while (relPath.indexOf('/') > 0) {
-			resource = "../" + resource;
-			relPath = relPath.substring(relPath.indexOf('/') + 1);
-		}
-		return resource;
-	}
-};
 
 var swigInPlace = _.extend({}, swigOpts, { inPlace: true });
 
-
 var ms = Metalsmith(__dirname)
-	.use(processUrls({
-		cleanUrls: true
-	}))
+	.use(cleanUrls())
 	.use(collections({
 		stuff: { refer: false }
 	}))
-	.use(crumbsPlugin())
+	.use(crumbs())
 	.use(each(function (file, name) { // This serves to help swig with template inheritance
 		file.filename = name;
 	}))
-	.use(fixRelativeResources({
+	.use(fixResources({
 		relRoot: (isDev) ? '' : 'metalsmith-test/'
 	}))
 	.use(templates(swigInPlace))
