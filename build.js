@@ -46,7 +46,7 @@ var ms = Metalsmith(__dirname)
 		relRoot: (isDev) ? '' : 'metalsmith-test/'
 	}))
 	.use(less({
-		pattern: '**/all.less',
+		pattern: '**/{all,editor}.less',
 		useDefaultSourceMap: true
 	}))
 	.use(assets({

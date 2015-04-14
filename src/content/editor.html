@@ -9,6 +9,7 @@ bodyClass: editor
 {% block head %}
 <link rel="Stylesheet" type="text/css" href="/bower_components/fontawesome/css/font-awesome.css" />
 <link rel="Stylesheet" type="text/css" href="/bower_components/opentip/css/opentip.css" />
+<link rel="Stylesheet" type="text/css" href="/css/editor.css" />
 {% endblock head %}
 
 {% block contents %}
@@ -24,6 +25,7 @@ bodyClass: editor
 
   <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="blockquote" class="fa fa-quote-left"></a>
   <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="pre" class="fa fa-code"></a>
+  <a class="fa fa-image editor-insert-image"></a>
 
   <a href="#" id="copy-btn" class="toolbar-right hint--top hint--always"><i class="fa fa-copy"></i></a>
 </div>
@@ -43,6 +45,14 @@ You can paste an image from your clipboard in here.
 </ul>
 
 </div>
+
+<div id="upload-dialog" style="display: none;">
+  <div class="upload-dz">
+    <i class="fa fa-image"></i>
+    <p>You can drag and drop images here or copy and paste into the editor</p>
+  </div>
+</div>
+
 {% endblock contents %}
 
 {% block scripts %}
@@ -50,6 +60,7 @@ You can paste an image from your clipboard in here.
 <script src="/bower_components/opentip/downloads/opentip-native.js"></script>
 <script src="/bower_components/wysihtml/dist/wysihtml5x-toolbar.min.js"></script>
 <script src="/bower_components/wysihtml/parser_rules/advanced_and_extended.js"></script>
+<script src="/js/editor/dialogs.js"></script>
 <script src="/js/editor/filereader.js"></script>
 <script src="/js/editor/editor.fileuploader.js"></script>
 <script src="/js/editor.js"></script>

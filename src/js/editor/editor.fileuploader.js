@@ -1,6 +1,7 @@
 (function () {
 	"use strict";
 	var imgurClientID = "ebab107b08ee6ae";
+	var bookmark;
 
 	function insertPlaceholder (ed) {
 		var id = +(new Date);
@@ -26,6 +27,12 @@
 	};
 
 	function onFileDrop (e) {
+		if (bookmark) {
+            this.composer.selection.setBookmark(bookmark);
+			this.currentView.element.focus();
+			this.uploadDialog.close();
+			bookmark = null;
+		}
 		var id = insertPlaceholder(this);
 		var upload = uploadImg(e.target.result);
 		upload.done(function (resp) {
@@ -41,8 +48,22 @@
 			}
 		};
 
-		FileReaderJS.setupDrop(el, frOpts);
-		FileReaderJS.setupClipboard(el, frOpts);		
+		editor.uploadDialog = new Dialog({
+			el: '#upload-dialog'
+		});
+
+		FileReaderJS.setupDrop($(".upload-dz")[0], frOpts);
+		FileReaderJS.setupClipboard(el, frOpts);
+
+		var imgBtn = $(editor.toolbar.container).find('.editor-insert-image');
+		imgBtn.mousedown(function (ev) {
+			ev.preventDefault();
+		});
+		imgBtn.click(function (ev) {
+			bookmark = editor.composer.selection.getBookmark();
+			ev.preventDefault();
+			editor.uploadDialog.open();
+		});
 	};
 
 
@@ -50,7 +71,10 @@
 		if (!FileReaderJS) {
 			throw "wysihtml5 File Upload Error - FileReaderJS required";
 		}
-		bindFileUploader(this, this.editableElement, opts);
+		var self = this;
+		setTimeout(function () { // toolbar not initialized immediately
+			bindFileUploader(self, self.editableElement, opts);
+		}, 0);
 	};
 })();
 
