@@ -55,10 +55,7 @@
 		FileReaderJS.setupDrop($(".upload-dz")[0], frOpts);
 		FileReaderJS.setupClipboard(el, frOpts);
 
-		var imgBtn = $(editor.toolbar.container).find('.editor-insert-image');
-		imgBtn.mousedown(function (ev) {
-			ev.preventDefault();
-		});
+		var imgBtn = $(editor.toolbar.container).find('.ed-image');
 		imgBtn.click(function (ev) {
 			bookmark = editor.composer.selection.getBookmark();
 			ev.preventDefault();

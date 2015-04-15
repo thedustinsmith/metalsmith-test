@@ -23,9 +23,11 @@ bodyClass: editor
   <a data-wysihtml5-command="insertUnorderedList" class="fa fa-list-ul"></a>
   <a data-wysihtml5-command="insertOrderedList" class="fa fa-list-ol"></a>
 
+  <a class="fa fa-link ed-link" data-wysihtml-helper></a>
+
   <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="blockquote" class="fa fa-quote-left"></a>
   <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="pre" class="fa fa-code"></a>
-  <a class="fa fa-image editor-insert-image"></a>
+  <a class="fa fa-image ed-image" data-wysihtml-helper></a>
 
   <a href="#" id="copy-btn" class="toolbar-right hint--top hint--always"><i class="fa fa-copy"></i></a>
 </div>
@@ -53,16 +55,30 @@ You can paste an image from your clipboard in here.
   </div>
 </div>
 
+<script type="text/template" id="linkTemplate">
+<div class="link-helper">
+<form>
+<input type="text" name="linkText" placeholder="Text" value="{{text}}" />
+<br />
+<input type="text" name="linkHref" placeholder="Url" value="{{url}}" />
+<br />
+<button type="submit">Submit</button>
+</form>
+</div>
+</script>
+
 {% endblock contents %}
 
 {% block scripts %}
 <script src="/bower_components/zeroclipboard/dist/ZeroClipboard.min.js"></script>
+<script src="/bower_components/mustache/mustache.min.js"></script>
 <script src="/bower_components/opentip/downloads/opentip-native.js"></script>
 <script src="/bower_components/wysihtml/dist/wysihtml5x-toolbar.min.js"></script>
 <script src="/bower_components/wysihtml/parser_rules/advanced_and_extended.js"></script>
 <script src="/js/editor/dialogs.js"></script>
 <script src="/js/editor/filereader.js"></script>
 <script src="/js/editor/editor.fileuploader.js"></script>
+<script src="/js/editor/editor.links.js"></script>
 <script src="/js/editor.js"></script>
 <script>
 	app.Editor.init();

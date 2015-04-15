@@ -11,6 +11,7 @@
     "wysihtml": "~0.4.17",
     "fontawesome": "~4.3.0",
     "opentip": "~2.4.6",
-    "zeroclipboard": "~2.2.0"
+    "zeroclipboard": "~2.2.0",
+    "mustache": "~2.0.0"
   }
 }
