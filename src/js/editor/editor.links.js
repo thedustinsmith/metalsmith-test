@@ -27,7 +27,9 @@
 					target: true,
 					showOn: null,
 					removeElementsOnHide: true,
-					hideOn: 'none'
+					hideOn: 'none',
+					background: '#ffffff',
+					borderColor: '#bada55'
 				});
 				tip.show();
 			}, 250);
