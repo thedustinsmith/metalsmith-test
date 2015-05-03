@@ -7,33 +7,13 @@ bodyClass: editor
 {% extends 'site.swig' %}
 
 {% block head %}
-<link rel="Stylesheet" type="text/css" href="/bower_components/fontawesome/css/font-awesome.css" />
-<link rel="Stylesheet" type="text/css" href="/bower_components/opentip/css/opentip.css" />
-<link rel="Stylesheet" type="text/css" href="/css/editor.css" />
+<link rel="Stylesheet" type="text/css" href="/css/editor.compiled.css" />
 {% endblock head %}
 
 {% block contents %}
-<div id="toolbar">
-  <a data-wysihtml5-command="bold" class="fa fa-bold"></a>
-  <a data-wysihtml5-command="italic" class="fa fa-italic"></a>
-  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
-  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2">H2</a>
-  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h3">H3</a>
-
-  <a data-wysihtml5-command="insertUnorderedList" class="fa fa-list-ul"></a>
-  <a data-wysihtml5-command="insertOrderedList" class="fa fa-list-ol"></a>
-
-  <a class="fa fa-link ed-link" data-wysihtml-helper></a>
-
-  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="blockquote" class="fa fa-quote-left"></a>
-  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="pre" class="fa fa-code"></a>
-  <a class="fa fa-image ed-image" data-wysihtml-helper></a>
-
-  <a href="#" id="copy-btn" class="toolbar-right hint--top hint--always"><i class="fa fa-copy"></i></a>
-</div>
 
 <!-- element to edit -->
-<div id="editor" data-placeholder="Go on, start editing...">
+<!-- <div id="editor" data-placeholder="Go on, start editing..."> -->
 Feel free to edit...
 <br />
 You can paste an image from your clipboard in here.
@@ -46,41 +26,13 @@ You can paste an image from your clipboard in here.
 	<li>Any other formatting tools?</li>
 </ul>
 
-</div>
-
-<div id="upload-dialog" style="display: none;">
-  <div class="upload-dz">
-    <i class="fa fa-image"></i>
-    <p>You can drag and drop images here or copy and paste into the editor</p>
-  </div>
-</div>
-
-<script type="text/template" id="linkTemplate">
-<div class="link-helper">
-<form>
-<input type="text" name="linkText" placeholder="Text" value="{{text}}" />
-<br />
-<input type="text" name="linkHref" placeholder="Url" value="{{url}}" />
-<br />
-<button type="submit">Submit</button>
-</form>
-</div>
-</script>
+<!-- </div> -->
 
 {% endblock contents %}
 
 {% block scripts %}
-<script src="/bower_components/zeroclipboard/dist/ZeroClipboard.min.js"></script>
-<script src="/bower_components/mustache/mustache.min.js"></script>
-<script src="/bower_components/opentip/downloads/opentip-native.js"></script>
-<script src="/bower_components/wysihtml/dist/wysihtml5x-toolbar.min.js"></script>
-<script src="/bower_components/wysihtml/parser_rules/advanced_and_extended.js"></script>
-<script src="/js/editor/dialogs.js"></script>
-<script src="/js/editor/filereader.js"></script>
-<script src="/js/editor/editor.fileuploader.js"></script>
-<script src="/js/editor/editor.links.js"></script>
-<script src="/js/editor.js"></script>
+<script src="/js/editor.compiled.js"></script>
 <script>
-	app.Editor.init();
+var mEditor = new MetalEditor();
 </script>
 {% endblock scripts %}

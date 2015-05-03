@@ -2,7 +2,12 @@
 
 body.editor {
 	#toolbar {
-		margin: 0 0 10px 0;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		padding: 10px 10%;
+		background: rgba(25, 25, 25, 0.75);
 	}
 	#toolbar a {  
 		text-decoration: none;
@@ -55,5 +60,13 @@ body.editor {
 		background-color: #f5f5f5;
 		border-radius: 5px;
 		padding: 10px;
+	}
+
+	#content {
+		outline: 1px solid #ddd;
+	}
+
+	#comments-wrapper {
+		opacity: 0.1;
 	}
 }

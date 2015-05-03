@@ -20,8 +20,10 @@
         {% include "crumbs.swig" %}
 
         <h1>{%= title %}</h1>
-        {% block contents %}
-        {% endblock contents %}
+        <div id="content">
+          {% block contents %}
+          {% endblock contents %}
+        </div>
 
         {% if !hideDisqus %}
         <div id="comments-wrapper">
@@ -38,13 +40,15 @@
       };
     </script>
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="/js/lunr.js"></script>
-    <script src="/js/common.js"></script>
-    <script src="/js/search.js"></script>
+    <script src="/js/utility.js"></script>
+    <!--<script src="/js/search.js"></script>
+    <script src="/js/lunr.js"></script>-->
+    <script src="/js/site.js"></script>
+    <script src="/js/editor.js"></script>
 
-    <script>
+    <!--<script>
     app.Search.init();
-    </script>
+    </script>-->
     {% block scripts %}
 
     {% endblock scripts %}
