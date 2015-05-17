@@ -55,9 +55,9 @@
     {% if !hideDisqus %}
     <script type="text/javascript">
       var disqus_shortname = 'metalsmithtest';
-      // var disqus_identifier = '';
-      // var disqus_title = '';
-      // var disqus_url = '';
+      var disqus_identifier = '';
+      var disqus_title = '';
+      var disqus_url = '';
 
       (function() {
           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

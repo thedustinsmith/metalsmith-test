@@ -1,4 +1,10 @@
 (function (app) {
+	// TODO - Known Issues
+	//**********************
+	// Wysihtml5 doesn't support inline styles.
+	// 
+
+
 	app = app || {};
 	var cssResources = [
 		'/css/editor.compiled.css',
@@ -42,7 +48,7 @@
 		var self = this;
 		var btn = document.getElementById('copy-btn');
 		ZeroClipboard.config({
-			swfPath: '/bower_components/zeroclipboard/dist/ZeroClipboard.swf'
+			swfPath: app.baseUrl + '/bower_components/zeroclipboard/dist/ZeroClipboard.swf'
 		});
 		var copyBtn = new ZeroClipboard(btn);
 		copyBtn.on('ready', function () {
