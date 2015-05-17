@@ -90,4 +90,8 @@
 			init(self, self.editableElement, opts);
 		}, 0);
 	};
+
+	wysihtml5.Editor.prototype.initHelpers = function () {
+
+	};
 })();

@@ -43,6 +43,7 @@ var editorJs = {
 		'js/editor/dialogs.js',
 		'js/editor/filereader.js',
 		'js/editor/editor.fileuploader.js',
+		'js/editor/editor.sizer.js',
 		'js/editor/editor.links.js'
 	],
 	output: 'js/editor.compiled.js'
@@ -86,7 +87,9 @@ var ms = Metalsmith(__dirname)
 	.destination('./build');
 
 if (isDev) {
-	ms.use(watch("**/*.*")).use(serve({
+	ms
+	.use(watch("**/*.*"))
+	.use(serve({
 		port: 8000,
 		verbose: true
 	}));

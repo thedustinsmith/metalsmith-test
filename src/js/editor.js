@@ -1,4 +1,11 @@
 (function (app) {
+	app = app || {};
+	var cssResources = [
+		'/css/editor.compiled.css',
+		'/bower_components/fontawesome/css/font-awesome.css'
+	];
+	var jsUrl = app.baseUrl + "/js/editor.compiled.js";
+	var templateUrl = app.baseUrl + '/editor-templates/';
 
 	// https://gist.github.com/thedustinsmith/4394c416a316e8046753
 	// Copied from Facebook's logic
@@ -15,14 +22,7 @@
 	    js.src = url; // url
 	    fjs.parentNode.insertBefore(js, fjs);
 	  }(document, 'script', 'dynamic-script'));
-	}
-
-	var cssResources = [
-		'/css/editor.compiled.css',
-		'/bower_components/fontawesome/css/font-awesome.css'
-	];
-	var jsUrl = "/js/editor.compiled.js";
-	var templateUrl = '/editor-templates/';
+	};
 
 	var Editor = function (contentId) {
 		var self = this; 
@@ -67,7 +67,7 @@
 			templatePromise = def.promise();
 
 		cssResources.forEach(function (u) {
-			$("head").append('<link type="text/css" rel="Stylesheet" href="' + u + '" />');
+			$("head").append('<link type="text/css" rel="Stylesheet" href="' + app.baseUrl + u + '" />');
 		});
 
 		this.templateContainer = $('<div id="editor-templates" />').appendTo("body").hide();
@@ -100,5 +100,5 @@
 	};
 
 	window.MetalEditor = Editor;
-})();
+})(window.app);
 
