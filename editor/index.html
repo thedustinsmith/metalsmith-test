@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Editor | Metalsmith Page</title>
+
+    <link href="/metalsmith-test/css/all.css" rel="Stylesheet" type="text/css" />
+    
+<link rel="Stylesheet" type="text/css" href="/metalsmith-test/css/editor.compiled.css" />
+
+</head>
+<body class="editor">
+	<header>
+		<a href="/" class="brand-header">Foliotek</a>
+    <!-- <div class="search-wrap">
+      <input type="search" id="search" />
+      <button class="search-btn">Search</button>
+    </div> -->
+	</header>
+    <div class="main-wrapper">
+        
+  <div class="crumb-container"><ul>
+  <li>
+  
+  editor
+  
+  </li>
+  </ul></div>
+
+
+        <h1>Editor</h1>
+        <div id="content">
+          
+
+<!-- element to edit -->
+<!-- <div id="editor" data-placeholder="Go on, start editing..."> -->
+Feel free to edit...
+<br />
+You can paste an image from your clipboard in here.
+<br />
+<h2>Todo</h2>
+<a href="http://google.com">google.com</a>
+<ul>
+	<li style="text-decoration: line-through;">Ability to add links</li>
+	<li style="text-decoration: line-through;">Fix drag and drop images</li>
+	<li>Bold text around a link.  Click in link - link helper not working</li>
+	<li>Any other formatting tools?</li>
+</ul>
+
+<!-- </div> -->
+
+
+        </div>
+
+        
+    </div>
+    <footer>
+    </footer>
+    <script>
+      window.app = {
+        baseUrl: '//thedustinsmith.com/metalsmith-test'
+      };
+    </script>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="/metalsmith-test/js/utility.js"></script>
+    <!--<script src="/metalsmith-test/js/search.js"></script>
+    <script src="/metalsmith-test/js/lunr.js"></script>-->
+    <script src="/metalsmith-test/js/site.js"></script>
+    <script src="/metalsmith-test/js/editor.js"></script>
+
+    <!--<script>
+    app.Search.init();
+    </script>-->
+    
+<script src="/metalsmith-test/js/editor.compiled.js"></script>
+<script>
+var mEditor = new MetalEditor();
+</script>
+
+    
+</body>
+</html>

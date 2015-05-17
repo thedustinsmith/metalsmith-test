@@ -1,0 +1,37 @@
+<div id="toolbar">
+  <button data-wysihtml5-command="bold"><i class="fa fa-bold"></i></button>
+  <button data-wysihtml5-command="italic"><i class="fa fa-italic"></i></button>
+  <button data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1"><i>H1</i></button>
+  <button data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2"><i>H2</i></button>
+  <button data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h3"><i>H3</i></button>
+
+  <button data-wysihtml5-command="insertUnorderedList"><i class="fa fa-list-ul"></i></button>
+  <button data-wysihtml5-command="insertOrderedList"><i class="fa fa-list-ol"></i></button>
+
+  <button data-wysihtml-helper><i class="fa fa-link ed-link"></i></button>
+
+  <button data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="blockquote"><i class="fa fa-quote-left"></i></button>
+  <button data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="pre"><i class="fa fa-code"></i></button>
+  <button data-wysihtml-helper><i class="fa fa-image ed-image"></i></button>
+
+  <button href="#" id="copy-btn" class="toolbar-right hint--top hint--always"><i class="fa fa-copy"></i></button>
+</div>
+
+<div id="upload-dialog" style="display: none;">
+  <div class="upload-dz">
+    <i class="fa fa-image"></i>
+    <p>You can drag and drop images here or copy and paste into the editor</p>
+  </div>
+</div>
+
+<script type="text/template" id="linkTemplate">
+<div class="link-helper">
+<form>
+<input type="text" name="linkText" placeholder="Text" value="{{text}}" />
+<br />
+<input type="text" name="linkHref" placeholder="Url" value="{{url}}" />
+<br />
+<button type="submit">Submit</button>
+</form>
+</div>
+</script>
